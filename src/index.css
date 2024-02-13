@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.loading-indicator:before {
+  content: "";
+  background: #00000080;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.loading-indicator:after {
+  content: " ";
+  position: fixed;
+  top: 40%;
+  left: 45%;
+  z-index: 10010;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #0474bf; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@font-face {
+  font-family: 'danaBlack';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-black.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaBlackitalic';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-blackitalic.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaBold';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-bold.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaBolditalic';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-bolditalic.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaDemibold';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-demibold.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaDemibolditalic';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-demibolditalic.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaExtrabold';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-extrabold.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaExtrabolditalic';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-extrabolditalic.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaExtralight';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-extralight.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaExtralightitalic';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-extralightitalic.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaLight';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-light.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaMedium';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-medium.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaMediumitalic';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-mediumitalic.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaRegular';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-regular.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: 'danaThin';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-thin.woff2') format('woff2'); 
+}
+
+
+@font-face {
+  font-family: 'dana';
+  src: url('./assets/fonts/dana/woff2/dana-fanum-regular.woff2') format('woff2'); 
+}
+@font-face {
+  font-family: "yekanRegEn";
+  src: url("./assets/fonts/yekan/woff2/YekanBakh-Regular.woff2") format("woff2");
+}
+.threeDote {
+  display: inline-block;
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.threeDoteName{
+  display: inline-block;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+.dateOfRegistration{
+  direction: ltr !important;
+
+}
+
+th{
+  font-size: 14px;
+}
+
+.btnColloction{
+  display: contents;
+}
+
+@media screen and (min-width: 1450px) {
+  .btnColloction{
+    display: flex;
+  }
+}

@@ -1,0 +1,10 @@
+https://medium.com/nerd-for-tech/common-data-fetching-patterns-for-real-apps-with-react-query-4b83188a95c1
+
+
+https://refine.dev/blog/react-query-guide/#prerequisite
+
+
+https://benhoneywill.com/building-a-range-slider-component-in-react/
+
+git checkout master
+git merge -m "Your merge commit message" [source_branch]

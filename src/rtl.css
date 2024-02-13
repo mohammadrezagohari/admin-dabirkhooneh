@@ -1,0 +1,7 @@
+
+.drawer-toggle:checked ~ .drawer-side > *:not(.drawer-overlay) {
+
+}
+.drawer-toggle ~ .drawer-side > *:not(.drawer-overlay) {
+    transform: translateX(100%);
+}
