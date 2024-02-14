@@ -41,6 +41,28 @@ function RefereeCommentList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [apiCurrenPage, setApiCurrenPage] = useState(1);
+  const [data, setData] = useState(null);
+
+  const getGeneralCategory = async () => {
+    const result = await getGeneralGategoryList(
+      userToken,
+    )
+      .then(function (response) {
+        setData(response);
+        // console.log("response result : ", response);
+        // toast.success(`${response.status.message}`);
+      })
+      .catch(function (error) {
+   
+        // toast.error(`${error.response.data.status.message}`);
+      });
+    return result;
+  };
+  
+  // const { data } = useQuery(["categories-referee-list", userToken], () =>
+  //   getGeneralGategoryList(userToken)
+  // );
+
   const getDatas = async () => {
     const result = await getJurorWorkList(
       userToken,
@@ -75,10 +97,13 @@ function RefereeCommentList() {
   useEffect(() => {
     getDatas();
   }, [apiCurrenPage, itemsPerPage]);
-
-  const { data } = useQuery(["categories-referee-list", userToken], () =>
-    getGeneralGategoryList(userToken)
-  );
+  
+  useEffect(() => {
+    getGeneralCategory();
+  }, []);
+  // const { data } = useQuery(["categories-referee-list", userToken], () =>
+  //   getGeneralGategoryList(userToken)
+  // );
 
  
 
