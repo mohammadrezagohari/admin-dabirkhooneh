@@ -30,6 +30,30 @@ function AdminParticipantsList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [apiCurrenPage, setApiCurrenPage] = useState(1);
+  const [data, setData] = useState(null);
+
+  const levels = window.localStorage.getItem("level");
+  // const { data } = useQuery(
+  //   ["categories-admin-participants-list-dropdown", userToken],
+  //   () => levels == 5 ? getAdminCategoryList(userToken) : null
+  // );
+  const getAdminParticip = async () => {
+    const result = await getAdminCategoryList(
+      userToken,
+    )
+      .then(function (response) {
+        setData(response);
+        // console.log("response result : ", response);
+        // toast.success(`${response.status.message}`);
+      })
+      .catch(function (error) {
+   
+        toast.error(`${error.response.data.status.message}`);
+      });
+    return result;
+  };
+
+
   const getDatas = async () => {
     const result = await getAdminParticipantsList(
       userToken,
@@ -69,11 +93,9 @@ function AdminParticipantsList() {
     getDatas();
   }, [apiCurrenPage, itemsPerPage]);
 
-  const levels = window.localStorage.getItem("level");
-  const { data } = useQuery(
-    ["categories-admin-participants-list-dropdown", userToken],
-    () => levels == 5 ? getAdminCategoryList(userToken) : null
-  );
+  useEffect(() => {
+    if(levels ==5) getAdminParticip();
+  }, []);
 
   
   // const currentPosts = allData;

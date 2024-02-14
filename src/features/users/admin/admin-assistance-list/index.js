@@ -73,7 +73,29 @@ function AdminAssistanceList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [apiCurrenPage, setApiCurrenPage] = useState(1);
+  const [data, setData] = useState(null);
 
+  const levels = window.localStorage.getItem("level");
+
+  // const { data } = useQuery(
+  //   ["categories-international-dropdown", userToken],
+  //   () => levels == 5 ? getAdminCategoryList(userToken) : null
+  // );
+  const getAdminCategory = async () => {
+    const result = await getAdminCategoryList(
+      userToken,
+    )
+      .then(function (response) {
+        setData(response);
+        // console.log("response result : ", response);
+        // toast.success(`${response.status.message}`);
+      })
+      .catch(function (error) {
+   
+        toast.error(`${error.response.data.status.message}`);
+      });
+    return result;
+  };
   const getDatas = async (page = null) => {
     const result = await getAdminAssistanceList(
       userToken,
@@ -113,11 +135,16 @@ function AdminAssistanceList() {
     if (firstLoading) {
        // console.log("first loading is here")
       getDatas();
+      if(levels == 5) getAdminCategory();
       setFirstoading(false)
     }else{
        // console.log("after loading first time")
     }
   }, [apiCurrenPage, itemsPerPage]);
+
+  useEffect(() => {
+      if(levels == 5) getAdminCategory();
+  }, []);
 
   const deleteItem = async (unique_key) => {
     const deleteResult = await getAdminAssistanceDelete(unique_key, userToken)
@@ -205,12 +232,7 @@ function AdminAssistanceList() {
     return createResult;
   };
 
-  const levels = window.localStorage.getItem("level");
 
-  const { data } = useQuery(
-    ["categories-international-dropdown", userToken],
-    () => levels == 5 ? getAdminCategoryList(userToken) : null
-  );
 
   const storeIRItem = async (e) => {
     e.preventDefault();

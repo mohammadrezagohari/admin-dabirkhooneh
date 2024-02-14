@@ -10,16 +10,43 @@ import { PiPaintBrushLight } from "react-icons/pi";
 import { IoEyeOutline } from "react-icons/io5";
 import ReactPaginate from "react-paginate";
 import { ThreeDots } from "react-loader-spinner";
+import { useEffect } from "react";
 function MyWorkList() {
   const { t } = useTranslation();
   const { userToken } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [apiCurrenPage, setApiCurrenPage] = useState(1);
-  const { isLoading, data } = useQuery(["my-work-list", userToken], () =>
-    getParticipantMyWorkList(userToken, apiCurrenPage, itemsPerPage)
-  );
-  if (isLoading) {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+
+  // const { isLoading, data } = useQuery(["my-work-list", userToken], () =>
+  //   getParticipantMyWorkList(userToken, apiCurrenPage, itemsPerPage)
+  // );
+  const getMyWorkCategory = async () => {
+    const result = await getParticipantMyWorkList(
+      userToken,
+    )
+      .then(function (response) {
+        setData(response);
+        // console.log("response result : ", response);
+        // toast.success(`${response.status.message}`);
+      })
+      .catch(function (error) {
+   
+        // toast.error(`${error.response.data.status.message}`);
+      });
+    return result;
+  };
+
+  useEffect(() => {
+    getMyWorkCategory();
+    setLoading(false);
+  }, []);
+  
+
+  if (loading) {
     return (
       <div className="flex items-center justify-center py-60">
         <ThreeDots

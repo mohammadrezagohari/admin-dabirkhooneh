@@ -83,6 +83,30 @@ function MyRefereeList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [apiCurrenPage, setApiCurrenPage] = useState(1);
+  const [data, setData] = useState(null);
+
+
+  // const { data } = useQuery(
+  //   ["assistances-referee-category-list", userToken],
+  //   () => getAssistanceCategoryList(userToken)
+  // );
+  const getAssisCategory = async () => {
+    const result = await getAssistanceCategoryList(
+      userToken,
+    )
+      .then(function (response) {
+        setData(response);
+        // console.log("response result : ", response);
+        // toast.success(`${response.status.message}`);
+      })
+      .catch(function (error) {
+   
+        toast.error(`${error.response.data.status.message}`);
+      });
+    return result;
+  };
+
+
   const getDatas = async () => {
     const result = await getAssistanceMyJurorList(
       userToken,
@@ -118,10 +142,15 @@ function MyRefereeList() {
     getDatas();
   }, [apiCurrenPage, itemsPerPage]);
 
-  const { data } = useQuery(
-    ["assistances-referee-category-list", userToken],
-    () => getAssistanceCategoryList(userToken)
-  );
+  useEffect(() => {
+    getAssisCategory();
+  }, []);
+
+  
+  // const { data } = useQuery(
+  //   ["assistances-referee-category-list", userToken],
+  //   () => getAssistanceCategoryList(userToken)
+  // );
 
   const storeIRItem = async (e) => {
     e.preventDefault();

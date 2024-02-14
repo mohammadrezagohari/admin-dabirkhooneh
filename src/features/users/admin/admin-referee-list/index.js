@@ -47,7 +47,29 @@ function AdminRefereeList() {
     const [firstLoading, setFirstoading] = useState(true);
     const [isSubmited, setIsSubmited] = useState(false);
     const [isChangeStatus, setIsChangeStatus] = useState(false);
+    const [data, setData] = useState(null);
     const [selectItems, setSelectItems] = useState(0);
+    const levels = window.localStorage.getItem("level");
+    // const { data } = useQuery(
+    //   ["categories-admin-referee-list-dropdown", userToken],
+    //   () => levels == 5 ? getAdminCategoryList(userToken) : null
+    // );
+
+    const getAdminAssis = async () => {
+      const result = await getAdminCategoryList(
+        userToken,
+      )
+        .then(function (response) {
+          setData(response);
+          // console.log("response result : ", response);
+          // toast.success(`${response.status.message}`);
+        })
+        .catch(function (error) {
+     
+          toast.error(`${error.response.data.status.message}`);
+        });
+      return result;
+    };
 
   const getDatas = async () => {
     const result = await getAdminJurorList(
@@ -85,11 +107,11 @@ function AdminRefereeList() {
   useEffect(() => {
     getDatas();
   }, [apiCurrenPage, itemsPerPage]);
-  const levels = window.localStorage.getItem("level");
-  const { data } = useQuery(
-    ["categories-admin-referee-list-dropdown", userToken],
-    () => levels == 5 ? getAdminCategoryList(userToken) : null
-  );
+
+  useEffect(() => {
+    if(levels==5) getAdminAssis();
+  }, []);
+ 
 
   const deleteItem = async (unique_key) => {
     const deleteResult = await getAdminJurorDelete(unique_key, userToken)

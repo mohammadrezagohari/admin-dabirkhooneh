@@ -47,6 +47,30 @@ function RefereeList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [apiCurrenPage, setApiCurrenPage] = useState(1);
+  const [data, setData] = useState(null);
+
+
+//   const { data } = useQuery(["categories-referee-list", userToken], () =>
+//   getGeneralGategoryList(userToken)
+// );
+
+const getRefereeCategory = async () => {
+  const result = await getGeneralGategoryList(
+    userToken,
+  )
+    .then(function (response) {
+      setData(response);
+      // console.log("response result : ", response);
+      // toast.success(`${response.status.message}`);
+    })
+    .catch(function (error) {
+ 
+      toast.error(`${error.response.data.status.message}`);
+    });
+  return result;
+};
+
+
 
   const getDatas = async () => {
     const result = await getJurorNewWorkList(
@@ -83,9 +107,13 @@ function RefereeList() {
     getDatas();
   }, [apiCurrenPage, itemsPerPage]);
 
-  const { data } = useQuery(["categories-referee-list", userToken], () =>
-    getGeneralGategoryList(userToken)
-  );
+  useEffect(() => {
+    getRefereeCategory();
+  }, []);
+  
+  // const { data } = useQuery(["categories-referee-list", userToken], () =>
+  //   getGeneralGategoryList(userToken)
+  // );
 
   const serachHandler = async (e) => {
     e.preventDefault();
